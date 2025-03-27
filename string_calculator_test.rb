@@ -36,4 +36,17 @@ class TestStringCalculator < Test::Unit::TestCase
     assert_equal 6, @calculator.add("//|\n1|2|3")
     assert_equal 72, @calculator.add("//:\n12:21:39")
   end
+
+  def test_negative_numbers_throw_exception
+    error = assert_raises(RuntimeError) { @calculator.add("-1,2") }
+    assert_equal "negatives not allowed: -1", error.message
+
+    error = assert_raises(RuntimeError) { @calculator.add("-1,-2,3") }
+    assert_equal "negatives not allowed: -1, -2", error.message
+  end
+
+  def test_numbers_greater_than_1000_ignored
+    assert_equal 2, @calculator.add("1001,2")
+    assert_equal 1, @calculator.add("1001,1,1003")
+  end
 end
