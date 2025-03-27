@@ -34,5 +34,6 @@ class TestStringCalculator < Test::Unit::TestCase
   def test_custom_delimiters
     assert_equal 3, @calculator.add("//;\n1;2")
     assert_equal 6, @calculator.add("//|\n1|2|3")
+    assert_equal 72, @calculator.add("//:\n12:21:39")
   end
 end
