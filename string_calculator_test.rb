@@ -49,4 +49,24 @@ class TestStringCalculator < Test::Unit::TestCase
     assert_equal 2, @calculator.add("1001,2")
     assert_equal 1, @calculator.add("1001,1,1003")
   end
+
+  def test_single_delimiter_of_any_length
+    assert_equal 6, @calculator.add("//[***]\n1***2***3")
+  end
+
+  def test_multiple_single_character_delimiters
+    assert_equal 6, @calculator.add("//[*][%]\n1*2%3")
+  end
+
+  def test_multiple_delimiters_of_different_lengths
+    assert_equal 6, @calculator.add("//[**][%%]\n1**2%%3")
+  end
+
+  def test_multiple_delimiters_with_longer_lengths
+    assert_equal 10, @calculator.add("//[||][###]\n1||2###3||4")
+  end
+
+  def test_mixed_delimiter_lengths
+    assert_equal 15, @calculator.add("//[*][%%][||]\n1*2%%3||4*5")
+  end
 end
